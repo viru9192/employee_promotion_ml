@@ -44,7 +44,7 @@ A machine learning-based web application that predicts employee promotion likeli
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/viru9192/employee_promotion_ml.git
    cd employee_promotion_ml
    ```
 
