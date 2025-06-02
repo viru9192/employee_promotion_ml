@@ -147,7 +147,7 @@ employee_promotion_ml/
 │   ├── templates/          # HTML templates
 │   │   ├── index.html      # Main prediction page
 │   │   └── visualizations.html  # Visualizations page
-│   └── static/            # Static files (if any)
+│   └── static/            # Static files
 ├── model/
 │   └── model.pkl          # Trained model file
 ├── requirements.txt       # Python dependencies
@@ -178,9 +178,9 @@ employee_promotion_ml/
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Authors
+## 👥 Author
 
-- Your Name - Viranchi More
+- Viranchi More
 
 ## 🙏 Acknowledgments
 
@@ -194,7 +194,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For support, please:
 1. Check the documentation
 2. Open an issue in the repository
-3. Contact the maintainers
+3. Contact the Author
 
 ## 🔄 Updates
 
