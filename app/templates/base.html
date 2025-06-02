@@ -1,0 +1,118 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Employee Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Promotion Predictor</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/predict">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shap">SHAP Summary</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+
+<!-- templates/predict.html -->
+{% extends 'base.html' %}
+{% block title %}Predict Promotion{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Employee Promotion Prediction</h2>
+    <form action="/predict" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">No. of Trainings</label>
+                <input type="number" name="no_of_trainings" class="form-control" required>
+
+                <label class="form-label">Age</label>
+                <input type="number" name="age" class="form-control" required>
+
+                <label class="form-label">Previous Year Rating</label>
+                <input type="number" step="0.1" name="previous_year_rating" class="form-control" required>
+
+                <label class="form-label">Length of Service</label>
+                <input type="number" name="length_of_service" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Avg Training Score</label>
+                <input type="number" name="avg_training_score" class="form-control" required>
+
+                <label class="form-label">Awards Won (0 or 1)</label>
+                <input type="number" name="awards_won" class="form-control" required>
+
+                <label class="form-label">KPI Met (0 or 1)</label>
+                <input type="number" name="kpi_met" class="form-control" required>
+
+                <label class="form-label">Department</label>
+                <select name="department" class="form-select" required>
+                    <option value="Sales & Marketing">Sales & Marketing</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Procurement">Procurement</option>
+                    <option value="Analytics">Analytics</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HR">HR</option>
+                    <option value="Legal">Legal</option>
+                    <option value="R&D">R&D</option>
+                </select>
+
+                <label class="form-label">Education</label>
+                <select name="education" class="form-select" required>
+                    <option value="Bachelor's">Bachelor's</option>
+                    <option value="Master's & above">Master's & above</option>
+                    <option value="Below Secondary">Below Secondary</option>
+                    <option value="Unknown">Unknown</option>
+                </select>
+
+                <label class="form-label">Gender</label>
+                <select name="gender" class="form-select" required>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label class="form-label">Recruitment Channel</label>
+                <select name="recruitment_channel" class="form-select" required>
+                    <option value="sourcing">Sourcing</option>
+                    <option value="referred">Referred</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Predict</button>
+    </form>
+    {% if prediction %}
+        <div class="result">Prediction: {{ prediction }}</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+<!-- templates/shap.html -->
+{% extends 'base.html' %}
+{% block title %}SHAP Summary{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Model Feature Impact (SHAP)</h2>
+    <p>This diagram helps interpret how features influence predictions.</p>
+    <img src="{{ url_for('static', filename='shap_summary.png') }}" alt="SHAP Summary" style="width:100%;">
+</div>
+{% endblock %}
